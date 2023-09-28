@@ -83,15 +83,21 @@ createForm.addEventListener('submit',(event) => {
       likes: newLikesText.value.split(',')
     }
 
-  axios.post(`${baseURL}/character`,)
+  axios.post(`${baseURL}/character`, maBod)
 
   .then((response) => {
     clearCharacters()
       for(let i = 0; i <response.data.length; i++){
         createCharacterCard(response.data[i])
       }
+      newFirstInput.value = ''
+      newLastInput.value = ''
+      newAgeInput.value = ''
+      newLikesText.value = ''
+
   })
   .catch(() => {
 
   })
+
 })

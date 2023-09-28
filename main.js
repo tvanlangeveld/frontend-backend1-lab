@@ -12,7 +12,7 @@ const newAgeInput = document.querySelector('#age')
 const newLikesText = document.querySelector('textarea')
 const charContainer = document.querySelector('section')
 
-// const baseURL = 
+ const baseURL = "http://localhost:4000"
 
 getAllBtn.addEventListener('click', () => {
   axios.get('http://localhost:4000/characters')
@@ -26,6 +26,28 @@ getAllBtn.addEventListener('click', () => {
   .catch(() => {
 
   })
+})
+
+
+ageForm.addEventListener('submit',(event) => {
+  event.preventDefault()
+  
+  let age = ageInput.value
+
+
+  axios.get(`${baseURL}/character?age=${age}`)
+  .then((response) => {
+    clearCharacters()
+      for(let i = 0; i <response.data.length; i++){
+        createCharacterCard(response.data[i])
+      }
+  })
+
+
+  .catch((error) => {
+
+  })
+
 })
 
   
@@ -49,3 +71,27 @@ function createCharacterCard(char) {
 function clearCharacters() {
   charContainer.innerHTML = ``
 }
+
+
+createForm.addEventListener('submit',(event) => {
+  event.preventDefault()
+  let maBod = {
+      firstName: newFirstInput.value, 
+      lastName: newLastInput.value, 
+      gender: newGenderDropDown.value,
+      age: newAgeInput.value, 
+      likes: newLikesText.value.split(',')
+    }
+
+  axios.post(`${baseURL}/character`,)
+
+  .then((response) => {
+    clearCharacters()
+      for(let i = 0; i <response.data.length; i++){
+        createCharacterCard(response.data[i])
+      }
+  })
+  .catch(() => {
+
+  })
+})
